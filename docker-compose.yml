@@ -1,0 +1,33 @@
+version: '2'
+
+services:
+        nginx:
+                image: nginx:1.18
+                container_name: nginx
+                restart: always
+                ports:
+                        - 80:80
+                        - 443:443
+                volumes:
+                        - /var/www:/var/www
+                        - /data/docker/web/nginx/fastcgi.conf:/etc/nginx/fastcgi.conf
+                        - /data/docker/web/nginx/fastcgi_params:/etc/nginx/fastcgi_params
+                        - /data/docker/web/nginx/snippets:/etc/nginx/snippets
+                        - /data/docker/web/nginx/conf.d:/etc/nginx/conf.d
+                        - /data/docker/web/php73/socket:/run/php
+                        - /data/docker/web/nginx/logs:/var/log/nginx/
+                depends_on:
+                        - php73
+                networks:
+                        - web
+        php73:
+                image: trumanwl/php:7.3-fpm
+                container_name: php73
+                volumes:
+                        - /var/www:/var/www
+                        - /data/docker/web/php73/socket:/run/php
+                networks:
+                        - web
+networks:
+        web:
+                driver: bridge

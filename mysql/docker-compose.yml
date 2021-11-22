@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  mysql8.0:
+    image: mysql:8.0.26
+    container_name: mysql8.0
+    restart: always
+    ports:
+      - 3336:3306
+    volumes:
+      - /data/docker/mysql/conf:/etc/mysql
+      - /data/docker/mysql/log:/var/log/mysql
+      - /data/docker/mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: your_password

@@ -1,0 +1,17 @@
+version: '3'
+services:
+  rabbitmq01: # 节点1 主节点
+    container_name: rabbitmq01
+    image: rabbitmq:3.8.14-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    hostname: rabbit01
+    restart: always
+    volumes:
+      - /data/docker/rabbitmq/data:/var/lib/rabbitmq
+      - /data/docker/rabbitmq/log:/var/log/rabbitmq
+      - /data/docker/rabbitmq/plugins:/usr/local/plugins
+    environment:
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password

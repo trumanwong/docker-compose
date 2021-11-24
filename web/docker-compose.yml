@@ -4,7 +4,7 @@ services:
         nginx:
                 image: nginx:1.18
                 container_name: nginx
-                entrypoint: /bin/bash -c "service supervisor start && export GOPROXY=https://goproxy.io,direct"
+                entrypoint: /bin/bash -c "service supervisor start"
                 restart: always
                 ports:
                         - 80:80

@@ -1,0 +1,10 @@
+server.host: 0.0.0.0
+elasticsearch.requestTimeout: 30000
+monitoring.ui.container.elasticsearch.enabled: true
+xpack.monitoring.ui.container.elasticsearch.enabled: true
+elasticsearch.username: your_elastic_username
+elasticsearch.password: your_elastic_password
+xpack.reporting.capture.browser.chromium.disableSandbox: false
+xpack.encryptedSavedObjects.encryptionKey: encryptedSavedObjectsabcd1234567890
+xpack.security.encryptionKey: encryptionKeysecurityabcd12345678909876543210
+xpack.reporting.encryptionKey: encryptionKeyreportingabcd12345678909876543210

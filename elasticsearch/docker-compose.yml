@@ -1,0 +1,40 @@
+version: '3'
+services:
+        es01:
+                image: docker.elastic.co/elasticsearch/elasticsearch:7.13.2
+                container_name: es01
+                environment:
+                        - bootstrap.memory_lock=true
+                        - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+                        - TAKE_FILE_OWNERSHIP=true
+                ulimits:                                                              
+                        memlock:
+                                soft: -1
+                                hard: -1
+                volumes:
+                        - /yourpath/data:/usr/share/elasticsearch/data
+                        - /yourpath/es01.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+                        - /yourpath/logs:/usr/share/elasticsearch/logs
+                        - /yourpath/plugins:/usr/share/elasticsearch/plugins
+                ports:
+                        - 9222:9200
+                        - 9300:9300
+                networks:
+                        - elastic
+                restart: always
+        kibana:
+                image: docker.elastic.co/kibana/kibana:7.13.2
+                container_name: kibana
+                ports:
+                        - 5622:5601
+                environment:
+                        ELASTICSEARCH_URL: http://es01:9200
+                        ELASTICSEARCH_HOSTS: http://es01:9200
+                volumes:
+                        - /yourpath/kibana.yml:/usr/share/kibana/config/kibana.yml
+                restart: always
+                networks:
+                        - elastic
+networks:
+        elastic:
+                driver: bridge

@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  consul:
+    image: consul:1.12.0
+    container_name: consul
+    command: agent -dev -bind=0.0.0.0 -client=0.0.0.0 -data-dir=/consul/data -config-dir=/consul/config
+    restart: always
+    ports:
+      - "8500:8500"
+    volumes:
+      - ./data:/consul/data
+      - ./config:/consul/config

@@ -3,14 +3,16 @@
   "server": false,
   "datacenter": "dc1",
   "data_dir": "/consul/data",
-  "log_level":"INFO",
-  "retry_join":[
+  "log_level": "INFO",
+  "retry_join": [
     "consul-server"
   ],
   "service": {
     "id": "dns",
     "name": "dns",
-    "tags": ["primary"],
+    "tags": [
+      "primary"
+    ],
     "address": "localhost",
     "port": 8600,
     "enable_tag_override": false,

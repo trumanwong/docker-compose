@@ -1,0 +1,30 @@
+version: '3.1'
+
+services:
+
+  mongo:
+    image: mongo:3.4
+    container_name: mongo
+    restart: always
+    ports:
+      - 28117:27017
+    volumes:
+      - /docker/mongodb/data/db:/data/db # 挂载数据目录
+      - /docker/mongodb/data/log:/var/log/mongodb  # 挂载日志目录
+      - /docker/mongodb/data/config:/etc/mongo  # 挂载配置目录
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_BASICAUTH_USERNAME: mongoexpress
+      ME_CONFIG_BASICAUTH_PASSWORD: mongoexpress
+      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/

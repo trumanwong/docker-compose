@@ -1,13 +1,31 @@
 version: '3'
 
 services:
-  consul:
+  consul-server:
     image: consul:1.12.0
-    container_name: consul
-    command: agent -dev -bind=0.0.0.0 -client=0.0.0.0 -data-dir=/consul/data -config-dir=/consul/config
+    container_name: consul-server
+    networks:
+      - consul
+    command: agent
     restart: always
     ports:
       - "8500:8500"
+      - "8600:8600/tcp"
+      - "8600:8600/udp"
     volumes:
-      - ./data:/consul/data
-      - ./config:/consul/config
+      - ./data/server:/consul/data
+      - ./config/server.json:/consul/config/server.json:ro
+  consul-client:
+    image: consul:1.12.0
+    container_name: consul-client
+    networks:
+      - consul
+    command: agent
+    restart: always
+    volumes:
+      - ./config/client.json:/consul/config/client.json:ro
+      - ./data/client:/consul/data
+
+networks:
+  consul:
+    driver: bridge

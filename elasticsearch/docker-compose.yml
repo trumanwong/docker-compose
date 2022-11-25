@@ -99,6 +99,7 @@ services:
       - ELASTICSEARCH_USERNAME=kibana_system
       - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
       - ELASTICSEARCH_SSL_CERTIFICATEAUTHORITIES=config/certs/ca/ca.crt
+      - ES_JAVA_OPTS="-Xms1g -Xmx1g"
     mem_limit: ${MEM_LIMIT}
     networks:
       - elastic

@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  nodejs:
+    container_name: nodejs
+    restart: always
+    image: node:20.9.0
+    ports:
+      - 3000:3000
+      - 3001:3001
+      - 8787:8787
+    volumes:
+      - /var/www:/var/www
+      - /data/docker/nodejs:/data/docker/nodejs
+    networks:
+      - web
+    tty: true
+networks:
+  web:
+    driver: bridge

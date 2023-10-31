@@ -5,6 +5,7 @@ services:
     container_name: nodejs
     restart: always
     image: node:20.9.0
+    privileged: true
     ports:
       - 3000:3000
       - 3001:3001

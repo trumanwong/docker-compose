@@ -15,3 +15,6 @@ RUN docker-php-ext-install gd
 RUN pecl install -o -f https://pecl.php.net/get/redis-6.0.2.tgz &&  rm -rf /tmp/pear &&  docker-php-ext-enable redis
 RUN pecl install -o -f https://pecl.php.net/get/imagick-3.6.0.tgz && rm -rf /tmp/pear &&  docker-php-ext-enable imagick
 RUN pecl install -o -f https://pecl.php.net/get/mongodb-1.11.0.tgz && rm -rf /tmp/pear &&  docker-php-ext-enable mongodb
+RUN sed -i 's/9000/\/var\/run\/php\/php7.3-fpm.sock/g' /usr/local/etc/php-fpm.d/zz-docker.conf
+RUN echo 'listen.mode = 0666' >> /usr/local/etc/php-fpm.d/zz-docker.conf
+RUN sed -i "s/listen = 127.0.0.1:9000/listen = \/var\/run\/php\/php7.3-fpm.sock/g" /usr/local/etc/php-fpm.d/www.conf
